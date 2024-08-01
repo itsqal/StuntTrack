@@ -1,0 +1,113 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "StuntTrack - Open API Spec",
+        "version": "1.0.0",
+        "description": "This is a documentation of the request and response cycle of the StuntTrack Back-end API. Use this a guide to develop other parts of the applcation",
+        "contact": {
+            "name": "Kelompok 7 EDM - Challenge",
+            "url": "https://github.com/itsqal/StuntTrack",
+            "email": "faiqalanaking@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://{url}/{basePath}",
+            "variables": {
+                "basePath": {
+                    "default": "v1"
+                },
+                "url": {
+                    "enum": [
+                        "localhost",
+                        "otherurl"
+                    ],
+                    "default": "5000"
+                }
+            }
+        }
+    ],
+    "paths": {
+        "/" : {
+            "get" : {
+                "description": "General path to get all stunting data in all provinces of Indonesia",
+                "summary": "Get all Stunting data",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "provinsi",
+                        "required": true,
+                        "schema" : {
+                            "type": "string",
+                            "default" : "all"
+                        },
+                        "description": "Specify the province the the api will send",
+                        "example" : "aceh"
+                    }
+                ],
+                "responses": {
+                    "200" : {
+                        "description": "Successfully retrieve stunting data",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "type": "object",
+                                    "properties": {
+                                        "data" : {
+                                            "type": "array",
+                                            "items" : {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id" : {
+                                                        "type": "number"
+                                                    },
+                                                    "provinsi" : {
+                                                        "type": "string"
+                                                    },
+                                                    "pravelensi" : {
+                                                        "type": "number"
+                                                    },
+                                                    "persentase_perubahan_tahunan" : {
+                                                        "type": "string"
+                                                    },
+                                                    "tahun" : {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "example" : {
+                                    "data" : [
+                                        {
+                                            "id" : 1,
+                                            "provinsi" : "Aceh",
+                                            "pravelensi" : "29%",
+                                            "persentase_perubahan_tahunan" : "+3%",
+                                            "tahun" : "2024"
+                                        },
+                                        {
+                                            "id" : 2,
+                                            "provinsi" : "Sulawesi Utara",
+                                            "pravelensi" : "32%",
+                                            "persentase_perubahan_tahunan" : "+2.3%",
+                                            "tahun" : "2024"
+                                        },
+                                        {
+                                            "id" : 3,
+                                            "provinsi" : "Sumatera Barat",
+                                            "pravelensi" : "15%",
+                                            "persentase_perubahan_tahunan" : "+1%",
+                                            "tahun" : "2024"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
