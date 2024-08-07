@@ -12,11 +12,8 @@
     },
     "servers": [
         {
-            "url": "http://{url}/{basePath}",
+            "url": "http://{url}/datas",
             "variables": {
-                "basePath": {
-                    "default": "v1"
-                },
                 "url": {
                     "enum": [
                         "localhost",
@@ -28,21 +25,21 @@
         }
     ],
     "paths": {
-        "/" : {
+        "/datas" : {
             "get" : {
-                "description": "General path to get all stunting data in all provinces of Indonesia",
-                "summary": "Get all Stunting data",
+                "description": "General path to get all stunting data in all provinces of Indonesia based on year",
+                "summary": "Get stunting data based on year",
                 "parameters": [
                     {
                         "in": "query",
-                        "name": "provinsi",
+                        "name": "tahun",
                         "required": true,
                         "schema" : {
                             "type": "string",
-                            "default" : "all"
+                            "default" : "2024"
                         },
-                        "description": "Specify the province the the api will send",
-                        "example" : "aceh"
+                        "description": "Specify the year of the data",
+                        "example" : "2024"
                     }
                 ],
                 "responses": {
@@ -102,6 +99,24 @@
                                             "tahun" : "2024"
                                         }
                                     ]
+                                }
+                            }
+                        }
+                    },
+                    "404" : {
+                        "description": "Not found request error",
+                        "content": {
+                            "applcation/json" : {
+                                "schema" : {
+                                    "type": "object",
+                                    "properties": {
+                                        "data" : {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "example" : {
+                                    "data" : "Resource you are requesting is not found"
                                 }
                             }
                         }
